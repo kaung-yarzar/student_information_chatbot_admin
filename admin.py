@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 from db_connection import connect_admin_collection
+import re
 
 ##### admin create function
 def insert_admin(n, u, p, r):
@@ -14,21 +15,22 @@ def insert_admin(n, u, p, r):
     else:
         st.warning('Please insert your data')
 
+def check_password(p):
+    pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_@$!?*&^%#:;]).{8,}$"
+    return bool(re.match(pattern, p))
+
+
+
+
 
 #check admin role
-
-
-
-
-
-
 def superadmin():
 ##### admin create form
     st.subheader('Admin Accounts')
     with st.form('insert_admin', clear_on_submit=True):
         n = st.text_input('name :')
         u = st.text_input('username : ')
-        p = st.text_input('Password : ')
+        p = st.text_input('Password : ', type="password")
         r  = st.radio(
             "What's is the admin role?",
             [":rainbow[Super Admin]",  "Admin"],
@@ -38,11 +40,11 @@ def superadmin():
             if n and u and p and r:
                 if len(n) > 3:
                     if len(u) > 3:
-                        if len(p) > 7:
+                        if check_password(p):
                             insert_admin(n, u, p, r)
                             st.toast('Admin inserted Successfully', icon='✅')
                         else:
-                            st.toast('Password must include at least 8 characters', icon='❌')
+                            st.toast('Password should contains at least 8 characters, one uppercase letter, one lowercase letter, one digit and one special character', icon='❌')
                     else:
                 
                         st.toast('Username is too short', icon='❌')

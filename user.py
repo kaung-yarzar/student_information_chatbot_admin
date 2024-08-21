@@ -25,7 +25,8 @@ def validate_username(u):
 
 ## Checking email is in true format
 def check_email(e):
-    pattern = "^[a-z0-9_]+@[a-z0-9]+\.[a-z]{1,3}$"
+    # pattern = "^[a-z0-9_]+@[a-z0-9]+\.[a-z]{1,3}$"
+    pattern = "^[a-z0-9_]+@tumeiktila\.edu\.mm$"
     if re.match(pattern, e):
         return True
 
@@ -36,6 +37,11 @@ def check_username(u):
     pattern = "^[a-zA-Z0-9]*$"
     if re.match(pattern, u):
         return True
+    
+
+def check_password(p):
+    pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_@$!?*&^%#:;]).{8,}$"
+    return bool(re.match(pattern, p))
 
 
 
@@ -81,7 +87,7 @@ def user():
                         if check_username(u) ==True:
                             if validate_username(u) == True:
                                 if len(u) > 3:
-                                    if len(p) > 7:
+                                    if check_password(p):
                                         if len(a) > 2:
                                             #hashed_password = stauth.Hasher([confirm_password]).generate()
                                             #insert_user(email, username, hashed_password[0]) # hashed password က array အနေနဲ့ထွက်လာလို့ 0 index ထောက်
@@ -90,7 +96,7 @@ def user():
                                         else:
                                             st.toast("Please Answer Security Question", icon ='❌')
                                     else:
-                                        st.toast('Password Should Have at Least 8 Characters', icon ='❌')
+                                        st.toast('Password should contains at least 8 characters, one uppercase letter, one lowercase letter, one digit and one special character', icon ='❌')
                                 else:
                                     st.toast('Username Should Have At Least 4 Characters', icon ='❌')
                             else:
@@ -100,7 +106,7 @@ def user():
                     else:
                         st.toast('Your Account Is Already Exist. Please Try to Login Instead', icon ='❌')
                 else:
-                    st.toast('Enter a Correct Email Address', icon ='❌')
+                    st.toast('Enter a TU Meiktila Edu Email Address', icon ='❌')
             else:
                 st.toast('Please fill out all **Required** fields', icon ='❌')
 
