@@ -19,7 +19,7 @@ def insert_data(input_text):
 
 def add():
     st.header('Create new training data')
-    with st.form('insert_data', clear_on_submit=True):
+    with st.form('insert_data'):
         question = st.text_input('What is your question?')
         
 
@@ -27,19 +27,17 @@ def add():
         
         
         if st.form_submit_button('Commit', type='primary'):
-            if question:
+            if question and answer:
                 if '?' not in question:
                     question += '?'
-                    insert_data(question)
-                    st.write(question)
 
-            if answer:
                 if '//:' not in answer:
                     if '.' not in answer:
                         answer += '.'
-                        insert_data(answer)
-                        st.write(answer)
-            st.success('Data inserted successfully!')
-            # else:
-            #     st.error('Both Question and Answer are Required!')
-
+                insert_data(question)
+                insert_data(answer)
+                st.write(question)
+                st.write(answer)
+                st.success('Data inserted successfully!')
+            else:
+                st.error('Both Question and Answer are Required!')
