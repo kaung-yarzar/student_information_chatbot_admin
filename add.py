@@ -27,18 +27,19 @@ def add():
         
         
         if st.form_submit_button('Commit', type='primary'):
-            if question and answer:
+            if question:
                 if '?' not in question:
                     question += '?'
+                    insert_data(question)
+                    st.write(question)
 
+            if answer:
                 if '//:' not in answer:
                     if '.' not in answer:
                         answer += '.'
-                insert_data(question)
-                insert_data(answer)
-                st.write(question)
-                st.write(answer)
-                st.success('Data inserted successfully!')
-            else:
-                st.error('Both Question and Answer are Required!')
+                        insert_data(answer)
+                        st.write(answer)
+            st.success('Data inserted successfully!')
+            # else:
+            #     st.error('Both Question and Answer are Required!')
 
