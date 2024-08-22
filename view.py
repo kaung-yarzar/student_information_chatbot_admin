@@ -20,7 +20,7 @@ def view():
     ######## sentences
     st.title('Training Data')
     question_mark_count = df['text'].str.count(r'\?$').sum()
-    image = df['text'].str.count(r'https').sum()
+    image = df['text'].str.count(r's+\.$').sum()
     df_wo_i = df[~df['text'].str.contains(r'https')]
     fullstop = df_wo_i['text'].str.count(r'\.$').sum()
     exclimation=df_wo_i['text'].str.count(r'!$').sum()
