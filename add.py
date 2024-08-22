@@ -19,7 +19,7 @@ def insert_data(input_text):
 
 def add():
     st.header('Create new training data')
-    with st.form('insert_data'):
+    with st.form('insert_data', clear_on_submit=True):
         question = st.text_input('What is your question?')
         
 
