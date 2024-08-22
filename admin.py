@@ -33,7 +33,7 @@ def superadmin():
         p = st.text_input('Password : ', type="password")
         r  = st.radio(
             "What's is the admin role?",
-            [":rainbow[Super Admin]",  ":Blue[Admin]"],
+            [":rainbow[Super Admin]",  ":blue[Admin]"],
             index=1,)
         if st.form_submit_button('Create', type ='primary'):
 
